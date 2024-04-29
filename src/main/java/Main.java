@@ -44,7 +44,6 @@ public class Main {
             commandProcessor.addCommand("save", new Save(console, collectionManager));
             commandProcessor.addCommand("execute_script", new ExecuteScript(console, collectionManager));
             commandProcessor.addCommand("exit", new Exit(console, collectionManager));
-            commandProcessor.addCommand("add_if_max", new AddIfMax(console, collectionManager));
             commandProcessor.addCommand("remove_greater", new RemoveGreater(console, collectionManager));
             commandProcessor.addCommand("history", new History(console, commandProcessor));
             commandProcessor.addCommand("count_by_mood", new CountByMood(console, collectionManager));

@@ -24,7 +24,7 @@ public class Add extends Command{
         console.printMessage("Создание нового экземпляра");
         HumanBeing person = Ask.askHumanBeing(console, collectionManager.getFreeId());
         collectionManager.add(person);
-        console.printMessage("Экземпляр успешно добавлен");
+        console.printMessage("Экземпляр успешно добавлен бебра");
         return true;
     }
 }
