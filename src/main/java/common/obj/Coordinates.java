@@ -1,7 +1,7 @@
-package Common.obj;
+package common.obj;
 
 import exeptions.CoordinatesExeption;
-import Common.Validable;
+import common.Validable;
 
 public class Coordinates implements Validable {
     private int x;

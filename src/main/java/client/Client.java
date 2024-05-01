@@ -1,7 +1,6 @@
 package client;
 
-import Common.Request;
-import Common.obj.*;
+import common.obj.*;
 import exeptions.CoordinatesExeption;
 
 import java.io.IOException;
@@ -19,9 +18,9 @@ public class Client {
 
         HumanBeing hb = new HumanBeing(1, "Robert", new Coordinates(1, 3), true, true, 334, WeaponType.RIFLE, Mood.GLOOM, new Car(true));
 
-        Request request = new Request();
-        request.setCommandName("add");
-        request.setHb(hb);
+        //Request request = new Request();
+        //request.setCommandName("add");
+        //request.setHb(hb);
 
         datagramChannel.send(buffer, serverAddress);
 

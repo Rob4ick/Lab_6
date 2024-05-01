@@ -1,7 +1,5 @@
 package client;
 
-import Common.Request;
-
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.*;
@@ -79,7 +77,7 @@ public class commandHandler {
     private void executionCommand(String[] c) {
         if (c[0].isEmpty())
             return;
-        Request rq = new Request(c[]);
+        //Request rq = new Request(c[]);
         var command = commandProcessor.getCommands().get(c[0]);
         if (command == null) {
             console.printError("Команда " + c[0] + " не найдена, введите help, чтобы узнать доступные команды");

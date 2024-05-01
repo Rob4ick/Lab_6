@@ -1,6 +1,6 @@
 package Server.commands;
 
-import Common.Command;
+import client.commands.Command;
 import Server.managers.CollectionManager;
 import client.Ask;
 import client.Console;

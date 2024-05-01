@@ -1,6 +1,6 @@
-package Common.obj;
+package common.obj;
 
-import Common.Validable;
+import common.Validable;
 
 public class Car implements Validable{
     private Boolean cool; //Поле не может быть null

@@ -1,25 +1,21 @@
-package Server.commands;
+package client.commands;
 
-import client.commands.Command;
-import Server.managers.CollectionManager;
 import client.Console;
+import common.Request;
 
 public class ExecuteScript extends Command {
     private final Console console;
-    private final CollectionManager collectionManager   ;
-    public ExecuteScript(Console console, CollectionManager collectionManager) {
+    public ExecuteScript(Console console) {
         super("execute_script", "исполняет скрипт из указанного файла");
         this.console = console;
-        this.collectionManager = collectionManager;
     }
 
-    public boolean execution(String[] args){
+    public boolean execution(String[] args, Request request){
         if (args.length != 2){
             console.printError("Неправильное количество аргументов");
             return false;
 
         }
-
 
         return true;
     }

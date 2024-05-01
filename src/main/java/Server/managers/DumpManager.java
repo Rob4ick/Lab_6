@@ -1,6 +1,6 @@
 package Server.managers;
 
-import Common.obj.HumanBeing;
+import common.obj.HumanBeing;
 
 import java.io.*;
 import java.time.LocalDate;

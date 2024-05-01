@@ -1,8 +1,8 @@
-package Server.commands;
+package client.commands;
 
-import client.commands.Command;
 import client.CommandProcessor;
 import client.Console;
+import common.Request;
 
 public class History extends Command {
     private final Console console;
@@ -13,7 +13,7 @@ public class History extends Command {
         this.commandProcessor = commandProcessor;
     }
 
-    public boolean execution(String[] args){
+    public boolean execution(String[] args, Request request){
         if(args.length != 1){
             console.printError("Неправильное количество аргументов");
             return false;

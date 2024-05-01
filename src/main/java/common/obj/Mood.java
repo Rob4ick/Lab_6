@@ -1,4 +1,4 @@
-package Common.obj;
+package common.obj;
 
 public enum Mood {
     SADNESS,

@@ -1,8 +1,8 @@
-package Server.commands;
+package client.commands;
 
-import client.commands.Command;
 import client.CommandProcessor;
 import client.Console;
+import common.Request;
 
 public class Help extends Command {
     private final Console console;
@@ -13,12 +13,14 @@ public class Help extends Command {
         this.commandProcessor = commandProcessor;
     }
 
-    public boolean execution(String[] args){
+    public boolean execution(String[] args, Request request){
         if (args.length != 1){
             console.printError("Неправильное количество аргументов");
             return true;
         }
+
         commandProcessor.getCommands().values().forEach(command -> {console.println(command.getName() + " " + command.getDescription());});
+
         return true;
     }
 }

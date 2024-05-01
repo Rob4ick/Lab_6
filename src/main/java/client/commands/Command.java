@@ -1,6 +1,4 @@
-package Common;
-
-import Server.commands.Executable;
+package client.commands;
 
 public abstract class Command implements Executable {
     private final String name;
@@ -10,7 +8,6 @@ public abstract class Command implements Executable {
         this.name = name;
         this.description = description;
     }
-
     public String getName() {
         return name;
     }

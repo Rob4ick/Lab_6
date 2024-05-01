@@ -1,6 +1,6 @@
 package Server.managers;
 
-import Common.obj.HumanBeing;
+import common.obj.HumanBeing;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

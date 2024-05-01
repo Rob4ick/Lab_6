@@ -1,11 +1,11 @@
 package client;
 
-import Common.obj.*;
+import common.obj.*;
 import exeptions.CoordinatesExeption;
 import exeptions.NotBooleanExeption;
 
 public class Ask {
-    public static HumanBeing askHumanBeing(Console console, int id) {
+    public static HumanBeing askHumanBeing(Console console) {
         String name1;
         do {
             console.printMessag("Введите имя name: ");
@@ -63,7 +63,7 @@ public class Ask {
 
         Car car1 = askCar(console);
 
-        return new HumanBeing(id, name1, coordinates1, realHero1, hasToothpick1, impactSpeed1, weaponType1, mood1, car1);
+        return new HumanBeing(0, name1, coordinates1, realHero1, hasToothpick1, impactSpeed1, weaponType1, mood1, car1);
     }
 
     public static Coordinates askCoordinates(Console console) {

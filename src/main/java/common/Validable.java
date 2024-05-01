@@ -1,4 +1,4 @@
-package Common;
+package common;
 
 public interface Validable {
     boolean validate();

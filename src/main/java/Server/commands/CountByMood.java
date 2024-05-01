@@ -1,9 +1,9 @@
 package Server.commands;
 
-import Common.Command;
+import client.commands.Command;
 import Server.managers.CollectionManager;
-import Common.obj.HumanBeing;
-import Common.obj.Mood;
+import common.obj.HumanBeing;
+import common.obj.Mood;
 import client.Console;
 
 public class CountByMood extends Command {
