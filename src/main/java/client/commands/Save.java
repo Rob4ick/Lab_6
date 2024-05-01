@@ -1,9 +1,7 @@
 package client.commands;
 
-import client.Console;
+import client.console.Console;
 import common.Request;
-
-import java.io.IOException;
 
 public class Save extends Command {
     private final Console console;

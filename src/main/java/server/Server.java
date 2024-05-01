@@ -1,4 +1,4 @@
-package Server;
+package server;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -7,7 +7,6 @@ import java.net.InetSocketAddress;
 import java.net.SocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.DatagramChannel;
-import java.sql.SQLOutput;
 
 public class Server {
     public static void main(String[] args) throws IOException, ClassNotFoundException {

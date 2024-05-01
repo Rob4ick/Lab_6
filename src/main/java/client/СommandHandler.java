@@ -1,18 +1,21 @@
 package client;
 
+import client.console.Console;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.*;
 
-public class commandHandler {
+public class СommandHandler {
+
     public static class ScriptException extends Exception {}
     private final Console console;
     private final CommandProcessor commandProcessor;
     private final Stack<Scanner> scannerStack = new Stack<>();
-
     private final TreeSet<String> fileNames = new TreeSet<>();
 
-    public commandHandler(Console console, CommandProcessor commandProcessor) {
+
+    public СommandHandler(Console console, CommandProcessor commandProcessor) {
         this.console = console;
         this.commandProcessor = commandProcessor;
     }
@@ -22,17 +25,19 @@ public class commandHandler {
         do{
             console.print("Введите команду: ");
             line = console.readln().trim().split(" ");
-            executionCommand(line);
-            if(line[0].equals("execute_script"))
+            if(line[0].equals("execute_script")) {
                 try {
                     script(line[1]);
-                }catch (NoSuchElementException e){
+                } catch (NoSuchElementException e) {
                     console.printError("Скрипт содержит некорректные данные!!!!");
-                }catch (ScriptException e){
+                } catch (ScriptException e) {
                     console.printError("Скрипт зацикливается!!!");
-                }catch (FileNotFoundException e){
+                } catch (FileNotFoundException e) {
                     console.printError("Файл не найден!!!");
                 }
+            } else if (line[0].equals("exit"))
+                break;
+            executionCommand(line);
         }while(!line[0].equals("exit"));
     }
 
@@ -77,7 +82,6 @@ public class commandHandler {
     private void executionCommand(String[] c) {
         if (c[0].isEmpty())
             return;
-        //Request rq = new Request(c[]);
         var command = commandProcessor.getCommands().get(c[0]);
         if (command == null) {
             console.printError("Команда " + c[0] + " не найдена, введите help, чтобы узнать доступные команды");

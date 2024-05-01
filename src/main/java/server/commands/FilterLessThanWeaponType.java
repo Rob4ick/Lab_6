@@ -1,10 +1,10 @@
-package Server.commands;
+package server.commands;
 
 import client.commands.Command;
-import Server.managers.CollectionManager;
+import server.managers.CollectionManager;
 import common.obj.HumanBeing;
 import common.obj.WeaponType;
-import client.Console;
+import client.console.Console;
 
 public class FilterLessThanWeaponType extends Command {
     private final Console console;

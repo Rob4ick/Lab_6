@@ -1,4 +1,4 @@
-package Server.managers;
+package server.managers;
 
 import common.obj.HumanBeing;
 

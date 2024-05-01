@@ -1,16 +1,11 @@
-package Server.commands;
+package server.commands;
 
-import client.commands.Command;
-import Server.managers.CollectionManager;
+import server.managers.CollectionManager;
 import common.obj.HumanBeing;
-import client.Ask;
-import client.Console;
 
-public class Add extends Command {
-    private final Console console;
+public class Add implements Executable {
     private final CollectionManager collectionManager;
-    public Add(Console console, CollectionManager collectionManager) {
-        super("add", "добавляет новый элемент в коллекцию");
+    public Add(CollectionManager collectionManager) {
         this.console = console;
         this.collectionManager = collectionManager;
     }

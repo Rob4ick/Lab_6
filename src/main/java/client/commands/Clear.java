@@ -1,7 +1,7 @@
 package client.commands;
 
 import common.Request;
-import client.Console;
+import client.console.Console;
 
 public class Clear extends Command {
     private final Console console;

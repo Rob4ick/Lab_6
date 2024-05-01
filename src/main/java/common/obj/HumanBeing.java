@@ -1,7 +1,6 @@
 package common.obj;
 
-import exeptions.CoordinatesExeption;
-import common.Validable;
+import common.exeptions.CoordinatesExeption;
 
 import java.io.Serial;
 import java.io.Serializable;

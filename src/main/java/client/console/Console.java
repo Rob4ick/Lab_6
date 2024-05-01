@@ -1,4 +1,4 @@
-package client;
+package client.console;
 
 import java.util.Objects;
 import java.util.Scanner;

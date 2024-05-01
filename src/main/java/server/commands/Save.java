@@ -1,8 +1,8 @@
-package Server.commands;
+package server.commands;
 
 import client.commands.Command;
-import Server.managers.CollectionManager;
-import client.Console;
+import server.managers.CollectionManager;
+import client.console.Console;
 
 import java.io.IOException;
 

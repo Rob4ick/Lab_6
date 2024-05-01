@@ -2,7 +2,7 @@ package client.commands;
 
 import common.Request;
 import common.obj.Mood;
-import client.Console;
+import client.console.Console;
 
 public class CountByMood extends Command {
     private final Console console;

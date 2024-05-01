@@ -1,4 +1,6 @@
-package client;
+package client.console;
+
+import client.console.Console;
 
 import java.util.Scanner;
 
@@ -42,6 +44,6 @@ public class StandartConsole implements Console {
     }
 
     public void setFileScanner(Scanner scanner) {
-        this.fileScanner = scanner;
+        fileScanner = scanner;
     }
 }

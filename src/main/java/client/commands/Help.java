@@ -1,7 +1,7 @@
 package client.commands;
 
 import client.CommandProcessor;
-import client.Console;
+import client.console.Console;
 import common.Request;
 
 public class Help extends Command {

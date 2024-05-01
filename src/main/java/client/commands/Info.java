@@ -1,9 +1,7 @@
 package client.commands;
 
-import client.Console;
+import client.console.Console;
 import common.Request;
-
-import java.time.LocalDateTime;
 
 public class Info extends Command {
     private Console console;

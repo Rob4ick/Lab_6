@@ -1,11 +1,11 @@
-package Server;
+package server;
 
-import Server.commands.*;
-import Server.managers.CollectionManager;
-import Server.managers.DumpManager;
+import server.commands.*;
+import server.managers.CollectionManager;
+import server.managers.DumpManager;
 import client.CommandProcessor;
-import client.StandartConsole;
-import client.commandHandler;
+import client.console.StandartConsole;
+import client.СommandHandler;
 
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -45,7 +45,7 @@ public class Main {
             commandProcessor.addCommand("filter_less_than_weapon_type", new FilterLessThanWeaponType(console, collectionManager));
             commandProcessor.addCommand("print_field_descending_weapon_type", new PrintFieldDescendingWeaponType(console, collectionManager));
 
-            new commandHandler(console, commandProcessor).manualMode();
+            new СommandHandler(console, commandProcessor).manualMode();
         }catch(NullPointerException e) {
             console.printError("Несуществующая переменная окружения!!!\nСоздаёте переменную с именем \"javaFile\" и положите в неё путь к файлу. И запустите программу ещё раз =)");
         }catch (NoSuchElementException ignored){}

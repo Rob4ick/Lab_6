@@ -1,7 +1,7 @@
 package client;
 
 import common.obj.*;
-import exeptions.CoordinatesExeption;
+import common.exeptions.CoordinatesExeption;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;

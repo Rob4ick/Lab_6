@@ -1,4 +1,4 @@
-package exeptions;
+package common.exeptions;
 
 import java.io.IOException;
 

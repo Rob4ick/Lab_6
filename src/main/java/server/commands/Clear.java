@@ -1,24 +1,26 @@
-package Server.commands;
+package server.commands;
 
 import client.commands.Command;
-import Server.managers.CollectionManager;
-import client.Console;
+import server.managers.CollectionManager;
+import client.console.Console;
 
-public class Exit extends Command {
+public class Clear extends Command {
     private final Console console;
     private final CollectionManager collectionManager;
-    public Exit(Console console, CollectionManager collectionManager) {
-        super("exit", "завершает программу");
+    public Clear(Console console, CollectionManager collectionManager) {
+        super("name", "description");
         this.console = console;
         this.collectionManager = collectionManager;
     }
 
-    public boolean execution(String[] args){
+    public boolean execution(String[] args) {
         if (args.length != 1){
             console.printError("Неправильное количество аргументов");
             return false;
         }
-        console.printMessage("Завершение программы...");
+
+        collectionManager.clearCollection();
+        console.println("Коллекция очищена");
         return true;
     }
 }

@@ -1,8 +1,9 @@
 package client;
 
+import client.console.Console;
 import common.obj.*;
-import exeptions.CoordinatesExeption;
-import exeptions.NotBooleanExeption;
+import common.exeptions.CoordinatesExeption;
+import common.exeptions.NotBooleanExeption;
 
 public class Ask {
     public static HumanBeing askHumanBeing(Console console) {

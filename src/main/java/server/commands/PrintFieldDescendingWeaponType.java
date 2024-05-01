@@ -1,9 +1,9 @@
-package Server.commands;
+package server.commands;
 
 import client.commands.Command;
-import Server.managers.CollectionManager;
+import server.managers.CollectionManager;
 import common.obj.HumanBeing;
-import client.Console;
+import client.console.Console;
 
 public class PrintFieldDescendingWeaponType extends Command {
     private final Console console;

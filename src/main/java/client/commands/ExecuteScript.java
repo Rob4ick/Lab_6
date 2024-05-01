@@ -1,6 +1,6 @@
 package client.commands;
 
-import client.Console;
+import client.console.Console;
 import common.Request;
 
 public class ExecuteScript extends Command {

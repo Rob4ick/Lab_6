@@ -1,8 +1,8 @@
-package Server.commands;
+package server.commands;
 
 import client.commands.Command;
 import client.CommandProcessor;
-import client.Console;
+import client.console.Console;
 
 public class Help extends Command {
     private final Console console;

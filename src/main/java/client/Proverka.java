@@ -1,6 +1,6 @@
 package client;
 
-import exeptions.NotBooleanExeption;
+import common.exeptions.NotBooleanExeption;
 
 public class Proverka {
     public Proverka() {
