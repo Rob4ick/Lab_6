@@ -6,7 +6,7 @@ import server.managers.CollectionManager;
 
 import java.time.LocalDateTime;
 
-public class Info implements Executable {
+public class Info extends Command {
     private CollectionManager collectionManager;
 
     public Info(CollectionManager collectionManager) {
@@ -38,5 +38,6 @@ public class Info implements Executable {
         s.append("Размер коллекции: ").append(size).append('\n');
         s.append(lastInitTimeString).append('\n');
         s.append(lastSaveTimeString).append('\n');
+        response.setAnswer(String.valueOf(s));
     }
 }

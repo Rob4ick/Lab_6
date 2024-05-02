@@ -5,7 +5,7 @@ import common.Response;
 import server.managers.CollectionManager;
 import common.obj.HumanBeing;
 
-public class RemoveGreater implements Executable {
+public class RemoveGreater extends Command {
     private final CollectionManager collectionManager;
     public RemoveGreater(CollectionManager collectionManager){
         this.collectionManager = collectionManager;

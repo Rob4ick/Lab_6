@@ -5,7 +5,7 @@ import common.Response;
 import server.managers.CollectionManager;
 import common.obj.HumanBeing;
 
-public class PrintFieldDescendingWeaponType implements Executable {
+public class PrintFieldDescendingWeaponType extends Command {
     private final CollectionManager collectionManager;
     public PrintFieldDescendingWeaponType(CollectionManager collectionManager) {
         this.collectionManager = collectionManager;

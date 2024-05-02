@@ -4,7 +4,7 @@ import common.Request;
 import common.Response;
 import server.managers.CollectionManager;
 
-public class Clear implements Executable {
+public class Clear extends Command {
     private final CollectionManager collectionManager;
     public Clear(CollectionManager collectionManager) {
         this.collectionManager = collectionManager;

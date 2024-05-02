@@ -9,8 +9,12 @@ import java.util.Map;
 public class CommandProcessor {
     private final Map<String, Command> commands = new HashMap<>();
 
-    public void addCommand(Command command){
-        commands.put(command.getName(), command);
+    public Map<String, Command> getCommands() {
+        return commands;
+    }
+
+    public void addCommand(String commandName, Command command){
+        commands.put(commandName, command);
     }
 
 }

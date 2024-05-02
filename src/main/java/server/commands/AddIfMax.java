@@ -5,7 +5,7 @@ import common.Response;
 import server.managers.CollectionManager;
 import common.obj.HumanBeing;
 
-public class AddIfMax implements Executable{
+public class AddIfMax extends Command{
 
     private final CollectionManager collectionManager;
     public AddIfMax(CollectionManager collectionManager) {

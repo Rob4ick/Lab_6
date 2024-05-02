@@ -5,7 +5,7 @@ import common.Response;
 import server.managers.CollectionManager;
 import common.obj.HumanBeing;
 
-public class Add implements Executable{
+public class Add extends Command{
     private final CollectionManager collectionManager;
     public Add(CollectionManager collectionManager) {
         this.collectionManager = collectionManager;

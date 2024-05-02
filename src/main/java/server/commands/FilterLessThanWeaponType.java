@@ -6,7 +6,7 @@ import server.managers.CollectionManager;
 import common.obj.HumanBeing;
 import common.obj.WeaponType;
 
-public class FilterLessThanWeaponType implements Executable {
+public class FilterLessThanWeaponType extends Command {
     private final CollectionManager collectionManager;
     public FilterLessThanWeaponType(CollectionManager collectionManager) {
         this.collectionManager = collectionManager;

@@ -4,7 +4,7 @@ import common.Request;
 import common.Response;
 import server.managers.CollectionManager;
 
-public class UpdateById implements Executable {
+public class UpdateById extends Command {
     private final CollectionManager collectionManager;
     public UpdateById(CollectionManager collectionManager){
         this.collectionManager = collectionManager;

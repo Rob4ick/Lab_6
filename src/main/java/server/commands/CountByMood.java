@@ -6,7 +6,7 @@ import server.managers.CollectionManager;
 import common.obj.HumanBeing;
 import common.obj.Mood;
 
-public class CountByMood implements Executable {
+public class CountByMood extends Command {
     private final CollectionManager collectionManager;
     public CountByMood(CollectionManager collectionManager){
         this.collectionManager = collectionManager;

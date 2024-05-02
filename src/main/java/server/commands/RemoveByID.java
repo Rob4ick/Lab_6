@@ -4,7 +4,7 @@ import common.Request;
 import common.Response;
 import server.managers.CollectionManager;
 
-public class RemoveByID implements Executable {
+public class RemoveByID extends Command {
     private final CollectionManager collectionManager;
 
     public RemoveByID(CollectionManager collectionManager) {
