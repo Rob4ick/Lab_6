@@ -1,5 +1,6 @@
 package client.commands;
 
+import client.Ask;
 import client.console.Console;
 import common.Request;
 
@@ -18,6 +19,7 @@ public class UpdateById extends Command {
         try{
 
             request.setId(Integer.parseInt(args[1].trim()));
+            request.setPerson(Ask.askHumanBeing(console));
             request.setCommandName("update_by_id");
 
             return true;

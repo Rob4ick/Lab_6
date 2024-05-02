@@ -3,7 +3,7 @@ package client;
 import client.commands.*;
 import client.console.StandartConsole;
 
-public class Client {
+public class Client2 {
     public static void main(String[] args) {
 
         var console = new StandartConsole();

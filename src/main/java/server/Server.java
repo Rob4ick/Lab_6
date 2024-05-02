@@ -33,7 +33,7 @@ public class Server {
             commandProcessor.addCommand("info", new Info(collectionManager));
             commandProcessor.addCommand("show", new Show(collectionManager));
             commandProcessor.addCommand("add", new Add(collectionManager));
-            commandProcessor.addCommand("update", new UpdateById(collectionManager));
+            commandProcessor.addCommand("update_by_id", new UpdateById(collectionManager));
             commandProcessor.addCommand("remove_by_id", new RemoveByID(collectionManager));
             commandProcessor.addCommand("clear", new Clear(collectionManager));
             commandProcessor.addCommand("add_if_max", new AddIfMax(collectionManager));
@@ -44,9 +44,8 @@ public class Server {
 
 
             DatagramChannel server = DatagramChannel.open();
+            server.configureBlocking(false);
             server.socket().bind(new InetSocketAddress(9999));
-
-            System.out.println("Server started on port 9999");
 
             ByteBuffer buf = ByteBuffer.allocate(1024);
 

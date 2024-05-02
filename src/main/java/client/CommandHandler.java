@@ -4,18 +4,19 @@ import client.console.Console;
 import common.Request;
 
 import java.io.*;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
+import java.net.*;
+
 import java.util.*;
 
 public class CommandHandler {
 
+    public static class ServerException extends Exception{}
     public static class ScriptException extends Exception {}
     private final Console console;
     private final CommandProcessor commandProcessor;
     private final Stack<Scanner> scannerStack = new Stack<>();
     private final TreeSet<String> fileNames = new TreeSet<>();
+    private int z = 0;
 
 
     public CommandHandler(Console console, CommandProcessor commandProcessor) {
@@ -23,7 +24,7 @@ public class CommandHandler {
         this.commandProcessor = commandProcessor;
     }
 
-    public void manualMode(){
+    public void manualMode() throws ServerException{
         String[] line = {"", ""};
         do{
             console.print("Введите команду: ");
@@ -48,7 +49,7 @@ public class CommandHandler {
         }while(!line[0].equals("exit"));
     }
 
-    private void script(String fileName) throws FileNotFoundException, ScriptException {
+    private void script(String fileName) throws FileNotFoundException, ScriptException, ServerException {
         FileReader fileReader = new FileReader(fileName);
         Scanner scanner = new Scanner(fileReader);
         scannerStack.add(scanner);
@@ -90,7 +91,7 @@ public class CommandHandler {
         }
     }
 
-    private void executionCommand(String[] c) throws IOException, ClassNotFoundException {
+    private void executionCommand(String[] c) throws IOException, ClassNotFoundException, ServerException {
         if (c[0].isEmpty())
             return;
         var command = commandProcessor.getCommands().get(c[0]);
@@ -102,6 +103,9 @@ public class CommandHandler {
         Request request = new Request();
 
         if (command.execution(c, request)) {
+
+            if(request.getCommandName().equals("help") || request.getCommandName().equals("history"))
+                return;
 
             DatagramSocket clientSocket = new DatagramSocket();
 
@@ -116,13 +120,26 @@ public class CommandHandler {
 
             data = new byte[1024];
             DatagramPacket receivePacket = new DatagramPacket(data, data.length);
-            clientSocket.receive(receivePacket);
 
-            System.out.println("Server says " + new String(receivePacket.getData()).trim());
+            clientSocket.setSoTimeout(3000);
+            try {
+                clientSocket.receive(receivePacket);
+                console.println(new String(receivePacket.getData()).trim());
 
-            clientSocket.close();
+                clientSocket.close();
 
-            commandProcessor.addHistory(c[0]);
+                commandProcessor.addHistory(c[0]);
+                z -= 1;
+            }catch (SocketTimeoutException e){
+                console.printError("Слишком долгое ожидание ответа от сервера");
+            }catch (IOException e){
+                console.printError("Ошибка сетевого подключения!!!");
+            }
+            z += 1;
+            if(z > 5){
+                console.printError("Не удалось восстановить подключение к серверу...");
+                throw new ServerException();
+            }
         }
     }
 }

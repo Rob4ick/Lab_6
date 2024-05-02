@@ -1,5 +1,6 @@
 package client.commands;
 
+import client.Ask;
 import client.console.Console;
 import common.Request;
 
@@ -12,7 +13,7 @@ public class RemoveByID extends Command {
     public boolean execution(String[] args, Request request){
         if (args.length != 2){
             console.printError("Неправильное количество аргументов");
-            return true;
+            return false;
         }
 
         int id = -1;
