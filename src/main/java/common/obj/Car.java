@@ -1,6 +1,9 @@
 package common.obj;
 
-public class Car implements Validable{
+import java.io.Serializable;
+
+public class Car implements Validable, Serializable {
+
     private Boolean cool; //Поле не может быть null
 
     public Car(Boolean cool){

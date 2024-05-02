@@ -1,4 +1,4 @@
-package server.commands;
+/*package server.commands;
 
 import client.commands.Command;
 import server.managers.CollectionManager;
@@ -29,3 +29,4 @@ public class Save extends Command {
         }
     }
 }
+*/

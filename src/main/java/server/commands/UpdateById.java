@@ -4,21 +4,23 @@ import common.Request;
 import common.Response;
 import server.managers.CollectionManager;
 
-public class RemoveByID implements Executable {
+public class UpdateById implements Executable {
     private final CollectionManager collectionManager;
-
-    public RemoveByID(CollectionManager collectionManager) {
+    public UpdateById(CollectionManager collectionManager){
         this.collectionManager = collectionManager;
     }
+
     public void execution(Request request, Response response){
-
         int id = request.getId();
-
         if(collectionManager.ByID(id) == null){
             response.setAnswer("Несуществующий ID");
             return;
         }
+
         collectionManager.removeByID(id);
-        response.setAnswer("Экземпляр удалён");
+        request.getPerson().setId(id);
+        collectionManager.add(request.getPerson());
+        response.setAnswer("Значения элемента обновлены");
+
     }
 }

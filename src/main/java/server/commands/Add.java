@@ -1,24 +1,22 @@
 package server.commands;
 
+import common.Request;
+import common.Response;
 import server.managers.CollectionManager;
 import common.obj.HumanBeing;
 
-public class Add implements Executable {
+public class Add implements Executable{
     private final CollectionManager collectionManager;
     public Add(CollectionManager collectionManager) {
-        this.console = console;
         this.collectionManager = collectionManager;
     }
 
-    public boolean execution(String[] args) {
-        if (args.length != 1) {
-            console.printError("Неправильное количество аргументов");
-            return false;
-        }
-        console.printMessage("Создание нового экземпляра");
-        HumanBeing person = Ask.askHumanBeing(console, collectionManager.getFreeId());
+    public void execution(Request request, Response response) {
+
+        HumanBeing person = request.getPerson();
+        person.setId(collectionManager.getFreeId());
         collectionManager.add(person);
-        console.printMessage("Экземпляр успешно добавлен");
-        return true;
+
+        response.setAnswer("Экземпляр успешно добавлен");
     }
 }

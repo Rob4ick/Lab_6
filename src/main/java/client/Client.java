@@ -1,26 +1,36 @@
 package client;
 
-import common.obj.*;
+import client.commands.Add;
+import client.console.StandartConsole;
+import common.Request;
 import common.exeptions.CoordinatesExeption;
 
-import java.io.IOException;
+
+import java.io.*;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.DatagramChannel;
 
 public class Client {
     public static void main(String[] args) throws IOException, CoordinatesExeption {
-        int port = 2288;
+        StandartConsole console = new StandartConsole();
+
+        int port = 2288; //порт
         DatagramChannel datagramChannel = DatagramChannel.open();
-        datagramChannel.configureBlocking(false);
+        //datagramChannel.configureBlocking(false); //неблокирующий режим
         InetSocketAddress serverAddress = new InetSocketAddress("localhost", port);
+
         ByteBuffer buffer = null;
 
-        HumanBeing hb = new HumanBeing(1, "Robert", new Coordinates(1, 3), true, true, 334, WeaponType.RIFLE, Mood.GLOOM, new Car(true));
+        Request request = new Request();
 
-        //Request request = new Request();
-        //request.setCommandName("add");
-        //request.setHb(hb);
+        Add add = new Add(console);
+        add.execution(new String[]{"add"}, request);
+
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(bos);
+        oos.writeObject(request);
+        buffer = ByteBuffer.wrap(bos.toByteArray());
 
         datagramChannel.send(buffer, serverAddress);
 
@@ -28,7 +38,7 @@ public class Client {
         buffer = ByteBuffer.allocate(30);
         datagramChannel.receive(buffer);
 
-        buffer.array();
+        System.out.println(new String(buffer.array()));
 
     }
 }

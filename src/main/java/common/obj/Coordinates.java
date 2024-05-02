@@ -2,7 +2,9 @@ package common.obj;
 
 import common.exeptions.CoordinatesExeption;
 
-public class Coordinates implements Validable {
+import java.io.Serializable;
+
+public class Coordinates implements Validable, Serializable {
     private int x;
     private int y; //Максимальное значение поля: 943
 

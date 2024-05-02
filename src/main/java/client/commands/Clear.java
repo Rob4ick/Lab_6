@@ -16,7 +16,7 @@ public class Clear extends Command {
             return false;
         }
 
-        request.getCommandName("clear");
+        request.setCommandName("clear");
 
         return true;
     }

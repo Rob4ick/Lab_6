@@ -1,34 +1,28 @@
 package server.commands;
 
-import client.commands.Command;
+import common.Request;
+import common.Response;
 import server.managers.CollectionManager;
 import common.obj.HumanBeing;
-import client.Ask;
-import client.console.Console;
 
-public class AddIfMax extends Command {
-    private final Console console;
+public class AddIfMax implements Executable{
+
     private final CollectionManager collectionManager;
-    public AddIfMax(Console console, CollectionManager collectionManager) {
-        super("add_if_max", "добавляет новый элемент в коллекцию, если его значение превышает значение наибольшего элемента этой коллекции");
-        this.console = console;
+    public AddIfMax(CollectionManager collectionManager) {
         this.collectionManager = collectionManager;
     }
 
-    public boolean execution(String[] args){
-        if (args.length != 1){
-            console.printError("Неправильное количество аргументов");
-            return false;
-        }
-        console.printMessage("Создание нового экземпляра");
-        HumanBeing person = Ask.askHumanBeing(console, collectionManager.getFreeId());
+    public void execution(Request request, Response response){
+
+        HumanBeing person = request.getPerson();
+        person.setId(collectionManager.getFreeId());
+
         if(person.getWeaponType().isLessTo(collectionManager.getMax().getWeaponType())) {
             collectionManager.add(person);
-            console.printMessage("Экземпляр успешно добавлен");
+            response.setAnswer("Экземпляр успешно добавлен");
         }
         else{
-            console.printMessage("Элемент не является наибольшим в коллекции. Экземпляр не добавлен");
+            response.setAnswer("Элемент не является наибольшим в коллекции. Экземпляр не добавлен");
         }
-        return true;
     }
 }

@@ -1,4 +1,4 @@
-package client;
+/*package client;
 
 import client.console.Console;
 
@@ -92,3 +92,4 @@ public class СommandHandler {
         }
     }
 }
+*/

@@ -1,26 +1,19 @@
 package server.commands;
 
-import client.commands.Command;
+import common.Request;
+import common.Response;
 import server.managers.CollectionManager;
-import client.console.Console;
 
-public class Clear extends Command {
-    private final Console console;
+public class Clear implements Executable {
     private final CollectionManager collectionManager;
-    public Clear(Console console, CollectionManager collectionManager) {
-        super("name", "description");
-        this.console = console;
+    public Clear(CollectionManager collectionManager) {
         this.collectionManager = collectionManager;
     }
 
-    public boolean execution(String[] args) {
-        if (args.length != 1){
-            console.printError("Неправильное количество аргументов");
-            return false;
-        }
+    public void execution(Request request, Response response) {
 
         collectionManager.clearCollection();
-        console.println("Коллекция очищена");
-        return true;
+        response.setAnswer("Коллекция очищена");
+
     }
 }

@@ -1,34 +1,31 @@
 package server.commands;
 
-import client.commands.Command;
+import common.Request;
+import common.Response;
 import server.managers.CollectionManager;
 import common.obj.HumanBeing;
 import common.obj.WeaponType;
-import client.console.Console;
 
-public class FilterLessThanWeaponType extends Command {
-    private final Console console;
+public class FilterLessThanWeaponType implements Executable {
     private final CollectionManager collectionManager;
-    public FilterLessThanWeaponType(Console console, CollectionManager collectionManager) {
-        super("filter_less_than_weapon_type", "выводит элементы, значение поля weaponType которых меньше заданного");
-        this.console = console;
+    public FilterLessThanWeaponType(CollectionManager collectionManager) {
         this.collectionManager = collectionManager;
     }
 
-    public boolean execution(String[] args){
-        if (args.length != 2){
-            console.printError("Неправильное количество аргументов");
-            return false;
+    public void execution(Request request, Response response){
+
+        StringBuilder s = new StringBuilder();
+
+        WeaponType weaponType = request.getWeaponType();
+        for (HumanBeing hb : collectionManager.getCollection()) {
+            if (hb.getWeaponType().isLessTo(weaponType))
+                s.append(hb);
         }
-        try {
-            WeaponType weaponType = WeaponType.valueOf(args[1].toUpperCase());
-            for (HumanBeing hb : collectionManager.getCollection()) {
-                if (hb.getWeaponType().isLessTo(weaponType))
-                    console.println(hb.toString());
-            }
-        }catch (IllegalArgumentException e){
-            console.printError("Некорректный тип оружия!!!!");
-        }
-        return true;
+
+        if(s.isEmpty())
+            response.setAnswer("Нету меньшего WeaponType");
+        else
+            response.setAnswer(String.valueOf(s));
+
     }
 }

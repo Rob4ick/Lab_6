@@ -4,12 +4,9 @@ import common.obj.HumanBeing;
 import common.obj.Mood;
 import common.obj.WeaponType;
 
-import java.io.Serial;
 import java.io.Serializable;
 
 public class Request implements Serializable {
-    @Serial
-    private static final long serialVersionUID = 777L;
 
     private String commandName = null;
     private HumanBeing person = null;
@@ -37,7 +34,7 @@ public class Request implements Serializable {
         this.mood = mood;
     }
 
-    public String getCommandName(String clear) {
+    public String getCommandName() {
         return commandName;
     }
 
@@ -55,5 +52,10 @@ public class Request implements Serializable {
 
     public Mood getMood() {
         return mood;
+    }
+
+    @Override
+    public String toString() {
+        return commandName + ":\n" + person.toString();
     }
 }

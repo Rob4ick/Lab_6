@@ -1,27 +1,24 @@
 package server.commands;
 
-import client.commands.Command;
+import common.Request;
+import common.Response;
 import server.managers.CollectionManager;
 import common.obj.HumanBeing;
-import client.console.Console;
 
-public class PrintFieldDescendingWeaponType extends Command {
-    private final Console console;
+public class PrintFieldDescendingWeaponType implements Executable {
     private final CollectionManager collectionManager;
-    public PrintFieldDescendingWeaponType(Console console, CollectionManager collectionManager) {
-        super("print_field_descending_weapon_type", "выводит значение поля weaponType всех элементов в порядке убывания id");
-        this.console = console;
+    public PrintFieldDescendingWeaponType(CollectionManager collectionManager) {
         this.collectionManager = collectionManager;
     }
 
-    public boolean execution(String[] args){
-        if (args.length != 1){
-            console.printError("Неправильное количество аргументов");
-            return false;
-        }
+    public void execution(Request request, Response response){
+
+        StringBuilder s = new StringBuilder();
+
         for(HumanBeing hb : collectionManager.getCollection())
-            console.print(hb.getWeaponType() + " ");
-        console.println("");
-        return true;
+            s.append(hb.getWeaponType()).append(" ");
+
+        response.setAnswer(String.valueOf(s));
+
     }
 }

@@ -1,24 +1,22 @@
 package server.commands;
 
-import client.commands.Command;
+import common.Request;
+import common.Response;
 import server.managers.CollectionManager;
-import client.console.Console;
 
 import java.time.LocalDateTime;
 
-public class Info extends Command {
+public class Info implements Executable {
     private CollectionManager collectionManager;
-    private Console console;
-    public Info(Console console, CollectionManager collectionManager){
-        super("info", "выводит информацию о коллекции");
+
+    public Info(CollectionManager collectionManager) {
         this.collectionManager = collectionManager;
-        this.console = console;
     }
-    public boolean execution(String[] args){
-        if (args.length != 1){
-            console.printError("Неправильное количество аргументов");
-            return false;
-        }
+
+    public void execution(Request request, Response response) {
+
+        StringBuilder s = new StringBuilder();
+
         String type = collectionManager.getCollection().getClass().toString();
         String size = collectionManager.getSize() + "";
         LocalDateTime lastInitTime = collectionManager.getLastInitTime();
@@ -29,17 +27,16 @@ public class Info extends Command {
         else
             lastInitTimeString = "Последнее время инициализации: " + lastInitTime;
         LocalDateTime lastSaveTime = collectionManager.getLastSaveTime();
-        if (lastSaveTime == null){
+        if (lastSaveTime == null) {
             lastSaveTimeString = "Коллекцию ещё не сохраняли";
-        }
-        else{
+        } else {
             lastSaveTimeString = "Последнее время сохранения: " + lastSaveTime;
         }
-        console.println("Информация о коллекции:");
-        console.println("Тип: " + type);
-        console.println("Размер коллекции: " + size);
-        console.println(lastInitTimeString);
-        console.println(lastSaveTimeString);
-        return true;
+
+        s.append("Информация о коллекции:\n");
+        s.append("Тип: ").append(type).append('\n');
+        s.append("Размер коллекции: ").append(size).append('\n');
+        s.append(lastInitTimeString).append('\n');
+        s.append(lastSaveTimeString).append('\n');
     }
 }

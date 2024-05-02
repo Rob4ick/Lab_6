@@ -1,7 +1,8 @@
 package server.commands;
 
 import common.Request;
+import common.Response;
 
 public interface Executable {
-    boolean execution(Request request);
+    void execution(Request request, Response response);
 }

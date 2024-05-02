@@ -1,5 +1,8 @@
 package server;
 
+import common.Request;
+import common.Response;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -12,7 +15,8 @@ public class Server {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         int port = 2288;
         DatagramChannel datagramChannel = DatagramChannel.open();
-        datagramChannel.configureBlocking(false);
+        //datagramChannel.configureBlocking(false);
+
         InetSocketAddress serverAddress = new InetSocketAddress(port);
         datagramChannel.bind(serverAddress);
 
@@ -22,11 +26,18 @@ public class Server {
 
         byte[] bytes = buffer.array();
 
+
         ByteArrayInputStream byteStream = new ByteArrayInputStream(bytes);
         ObjectInputStream objStream = new ObjectInputStream(byteStream);
-        System.out.println(objStream.readObject());
+        Request request = (Request) objStream.readObject();
+        System.out.println(request.getCommandName());
+        System.out.println(request.getWeaponType());
 
         buffer.clear();
+
+        Response response = new Response();
+        response.setAnswer("Ошибка!!!");
+
         buffer = ByteBuffer.wrap("ответ".getBytes());
         datagramChannel.send(buffer, clientAddress);
 

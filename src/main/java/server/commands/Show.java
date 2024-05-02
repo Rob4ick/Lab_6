@@ -1,24 +1,18 @@
 package server.commands;
 
-import client.commands.Command;
+import common.Request;
+import common.Response;
 import server.managers.CollectionManager;
-import client.console.Console;
 
-public class Show extends Command {
-    private Console console;
+public class Show implements Executable{
     private CollectionManager collectionManager;
-    public Show(Console console, CollectionManager collectionManager) {
-        super("Show", "выводит все элементы коллекции");
-        this.console = console;
+    public Show(CollectionManager collectionManager) {
         this.collectionManager = collectionManager;
     }
 
-    public boolean execution(String[] args){
-        if (args.length != 1){
-            console.printError("Неправильное количество аргументов");
-            return true;
-        }
-        console.print(collectionManager.toString());
-        return true;
+    public void execution(Request request, Response response){
+
+        response.setAnswer(collectionManager.toString());
+
     }
 }

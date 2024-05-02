@@ -1,12 +1,14 @@
 package common.obj;
 
 
+import java.io.Serializable;
 
-public enum WeaponType {
+public enum WeaponType implements Serializable {
     SHOTGUN (70, 25, 30),
     RIFLE (60, 85, 15),
     KNIFE (100, 100, 20),
     MACHINE_GUN (50, 10, 100);
+
     private final int damage;
     private final int accuracy;
     private final int rate_of_fire;

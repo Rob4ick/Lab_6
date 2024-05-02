@@ -1,6 +1,8 @@
 package common.obj;
 
-public enum Mood {
+import java.io.Serializable;
+
+public enum Mood implements Serializable {
     SADNESS,
     GLOOM,
     FRENZY;

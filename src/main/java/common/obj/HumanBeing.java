@@ -7,10 +7,9 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class HumanBeing implements Validable, Serializable {
-    @Serial
-    private static final long serialVersionUID = 1337L;
-    private final int id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
+public class HumanBeing implements Validable, Serializable{
+
+    private int id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private final String name; //Поле не может быть null, Строка не может быть пустой
     private final Coordinates coordinates; //Поле не может быть null
     private final java.time.LocalDateTime creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
@@ -47,6 +46,10 @@ public class HumanBeing implements Validable, Serializable {
         if(creationDate == null) return false;
         if(weaponType == null) return false;
         return car != null && car.validate();
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public static HumanBeing fromArray(String[] s) throws CoordinatesExeption {

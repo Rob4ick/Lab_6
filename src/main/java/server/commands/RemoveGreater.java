@@ -1,27 +1,25 @@
 package server.commands;
 
-import client.commands.Command;
+import common.Request;
+import common.Response;
 import server.managers.CollectionManager;
 import common.obj.HumanBeing;
-import client.Ask;
-import client.console.Console;
 
-public class RemoveGreater extends Command {
-    private final Console console;
+public class RemoveGreater implements Executable {
     private final CollectionManager collectionManager;
-    public RemoveGreater(Console console, CollectionManager collectionManager){
-        super("remove_greater", "удаляет из коллекции все элементы, превышающий заданный");
-        this.console = console;
+    public RemoveGreater(CollectionManager collectionManager){
         this.collectionManager = collectionManager;
     }
 
-    public boolean execution(String[] args){
-        if (args.length != 1){
-            console.printError("Неправильное количество аргументов");
-            return false;
-        }
-        HumanBeing hb = Ask.askHumanBeing(console, collectionManager.getFreeId());
-        collectionManager.getCollection().removeIf(x -> x.getWeaponType().isLessTo(hb.getWeaponType()));
-        return true;
+    public void execution(Request request, Response response){
+
+        HumanBeing person = request.getPerson();
+        person.setId(collectionManager.getFreeId());
+
+        int n = collectionManager.getCollection().size();
+        collectionManager.getCollection().removeIf(x -> x.getWeaponType().isLessTo(person.getWeaponType()));
+        n -= collectionManager.getCollection().size();
+        response.setAnswer("Из коллекции было удалено " + n + "элемент(ов)");
+
     }
 }
