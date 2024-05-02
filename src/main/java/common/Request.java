@@ -54,8 +54,4 @@ public class Request implements Serializable {
         return mood;
     }
 
-    @Override
-    public String toString() {
-        return commandName + ":\n" + person.toString();
-    }
 }

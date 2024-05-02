@@ -1,44 +1,32 @@
 package client;
 
-import client.commands.Add;
+import client.commands.*;
 import client.console.StandartConsole;
-import common.Request;
-import common.exeptions.CoordinatesExeption;
-
-
-import java.io.*;
-import java.net.InetSocketAddress;
-import java.nio.ByteBuffer;
-import java.nio.channels.DatagramChannel;
 
 public class Client {
-    public static void main(String[] args) throws IOException, CoordinatesExeption {
-        StandartConsole console = new StandartConsole();
+    public static void main(String[] args) {
 
-        int port = 2288; //порт
-        DatagramChannel datagramChannel = DatagramChannel.open();
-        //datagramChannel.configureBlocking(false); //неблокирующий режим
-        InetSocketAddress serverAddress = new InetSocketAddress("localhost", port);
+        var console = new StandartConsole();
 
-        ByteBuffer buffer = null;
+        var commandProcessor = new CommandProcessor();
 
-        Request request = new Request();
+        commandProcessor.addCommand(new Help(console, commandProcessor));
+        commandProcessor.addCommand(new Info(console));
+        commandProcessor.addCommand(new Show(console));
+        commandProcessor.addCommand(new Add(console));
+        commandProcessor.addCommand(new UpdateById(console));
+        commandProcessor.addCommand(new RemoveByID(console));
+        commandProcessor.addCommand(new Clear(console));
+        commandProcessor.addCommand(new Save(console));
+        commandProcessor.addCommand(new ExecuteScript(console));
+        commandProcessor.addCommand(new Exit(console));
+        commandProcessor.addCommand(new AddIfMax(console));
+        commandProcessor.addCommand(new RemoveGreater(console));
+        commandProcessor.addCommand(new History(console, commandProcessor));
+        commandProcessor.addCommand(new CountByMood(console));
+        commandProcessor.addCommand(new FilterLessThanWeaponType(console));
+        commandProcessor.addCommand(new PrintFieldDescendingWeaponType(console));
 
-        Add add = new Add(console);
-        add.execution(new String[]{"add"}, request);
-
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        ObjectOutputStream oos = new ObjectOutputStream(bos);
-        oos.writeObject(request);
-        buffer = ByteBuffer.wrap(bos.toByteArray());
-
-        datagramChannel.send(buffer, serverAddress);
-
-        buffer.clear();
-        buffer = ByteBuffer.allocate(30);
-        datagramChannel.receive(buffer);
-
-        System.out.println(new String(buffer.array()));
-
+        new CommandHandler(console, commandProcessor).manualMode();
     }
 }

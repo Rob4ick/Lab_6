@@ -1,12 +1,15 @@
-/*package client;
+package client;
 
 import client.console.Console;
+import common.Request;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.util.*;
 
-public class СommandHandler {
+public class CommandHandler {
 
     public static class ScriptException extends Exception {}
     private final Console console;
@@ -15,7 +18,7 @@ public class СommandHandler {
     private final TreeSet<String> fileNames = new TreeSet<>();
 
 
-    public СommandHandler(Console console, CommandProcessor commandProcessor) {
+    public CommandHandler(Console console, CommandProcessor commandProcessor) {
         this.console = console;
         this.commandProcessor = commandProcessor;
     }
@@ -37,7 +40,11 @@ public class СommandHandler {
                 }
             } else if (line[0].equals("exit"))
                 break;
-            executionCommand(line);
+            try{
+                executionCommand(line);
+            }catch (IOException ignored){} catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
         }while(!line[0].equals("exit"));
     }
 
@@ -58,7 +65,11 @@ public class СommandHandler {
         try {
             while (scanner.hasNext()) {
                 String[] line = scanner.nextLine().trim().split(" ");
-                executionCommand(line);
+                try {
+                    executionCommand(line);
+                }catch (IOException ignored){} catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
                 if (line[0].equals("execute_script"))
                     script(line[1]);
             }
@@ -79,7 +90,7 @@ public class СommandHandler {
         }
     }
 
-    private void executionCommand(String[] c) {
+    private void executionCommand(String[] c) throws IOException, ClassNotFoundException {
         if (c[0].isEmpty())
             return;
         var command = commandProcessor.getCommands().get(c[0]);
@@ -87,9 +98,31 @@ public class СommandHandler {
             console.printError("Команда " + c[0] + " не найдена, введите help, чтобы узнать доступные команды");
             return;
         }
-        if (command.execution(c)) {
+
+        Request request = new Request();
+
+        if (command.execution(c, request)) {
+
+            DatagramSocket clientSocket = new DatagramSocket();
+
+            ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
+            ObjectOutputStream objStream = new ObjectOutputStream(byteStream);
+            objStream.writeObject(request);
+            byte[] data = byteStream.toByteArray();
+
+            InetAddress IPAddress = InetAddress.getByName("localhost");
+            DatagramPacket sendPacket = new DatagramPacket(data, data.length, IPAddress, 9999);
+            clientSocket.send(sendPacket);
+
+            data = new byte[1024];
+            DatagramPacket receivePacket = new DatagramPacket(data, data.length);
+            clientSocket.receive(receivePacket);
+
+            System.out.println("Server says " + new String(receivePacket.getData()).trim());
+
+            clientSocket.close();
+
             commandProcessor.addHistory(c[0]);
         }
     }
 }
-*/

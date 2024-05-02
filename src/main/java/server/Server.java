@@ -3,9 +3,7 @@ package server;
 import common.Request;
 import common.Response;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.*;
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
 import java.nio.ByteBuffer;
@@ -13,33 +11,32 @@ import java.nio.channels.DatagramChannel;
 
 public class Server {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
-        int port = 2288;
-        DatagramChannel datagramChannel = DatagramChannel.open();
-        //datagramChannel.configureBlocking(false);
+        DatagramChannel server = DatagramChannel.open();
+        server.socket().bind(new InetSocketAddress(9999));
 
-        InetSocketAddress serverAddress = new InetSocketAddress(port);
-        datagramChannel.bind(serverAddress);
+        System.out.println("Server started on port 9999");
 
-        ByteBuffer buffer = ByteBuffer.allocate(1024*1024);
+        ByteBuffer buf = ByteBuffer.allocate(1024);
 
-        SocketAddress clientAddress = datagramChannel.receive(buffer);
+        while (true) {
+            buf.clear();
+            SocketAddress clientAddress = server.receive(buf);
 
-        byte[] bytes = buffer.array();
+            if (clientAddress != null) {
+
+                ByteArrayInputStream byteStream = new ByteArrayInputStream(buf.array());
+                ObjectInputStream objStream = new ObjectInputStream(byteStream);
+
+                Request request = (Request) objStream.readObject();
 
 
-        ByteArrayInputStream byteStream = new ByteArrayInputStream(bytes);
-        ObjectInputStream objStream = new ObjectInputStream(byteStream);
-        Request request = (Request) objStream.readObject();
-        System.out.println(request.getCommandName());
-        System.out.println(request.getWeaponType());
 
-        buffer.clear();
 
-        Response response = new Response();
-        response.setAnswer("Ошибка!!!");
+                byte[] response = message.getBytes();
+                ByteBuffer responseBuffer = ByteBuffer.wrap(response);
 
-        buffer = ByteBuffer.wrap("ответ".getBytes());
-        datagramChannel.send(buffer, clientAddress);
-
+                server.send(responseBuffer, clientAddress);
+            }
+        }
     }
 }

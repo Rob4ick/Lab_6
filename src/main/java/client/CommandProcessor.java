@@ -10,8 +10,8 @@ public class CommandProcessor {
     private final Map<String, Command> commands = new HashMap<>();
     private final ArrayList<String> history = new ArrayList<>();
 
-    public void addCommand(String name, Command command){
-        commands.put(name, command);
+    public void addCommand(Command command){
+        commands.put(command.getName(), command);
     }
 
     public Map<String, Command> getCommands(){
