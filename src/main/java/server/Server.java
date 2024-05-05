@@ -71,6 +71,7 @@ public class Server {
                     ByteBuffer responseBuffer = ByteBuffer.wrap(message);
 
                     server.send(responseBuffer, clientAddress);
+                    collectionManager.saveCollection();
                 }
             }
         }catch(NullPointerException e) {

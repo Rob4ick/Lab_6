@@ -26,6 +26,7 @@ public class History extends Command {
                     console.print(commandProcessor.getHistory().get(i) + " ");
                 console.print("\n");
             }
+            request.setCommandName("history");
             return true;
         }
     }

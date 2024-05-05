@@ -19,6 +19,7 @@ public class Help extends Command {
             return true;
         }
 
+        request.setCommandName("help");
         commandProcessor.getCommands().values().forEach(command -> {console.println(command.getName() + " " + command.getDescription());});
 
         return true;

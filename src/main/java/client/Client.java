@@ -17,7 +17,6 @@ public class Client {
         commandProcessor.addCommand(new UpdateById(console));
         commandProcessor.addCommand(new RemoveByID(console));
         commandProcessor.addCommand(new Clear(console));
-        commandProcessor.addCommand(new Save(console));
         commandProcessor.addCommand(new ExecuteScript(console));
         commandProcessor.addCommand(new Exit(console));
         commandProcessor.addCommand(new AddIfMax(console));
