@@ -1,10 +1,9 @@
-package client;
+package client.utilities;
 
 import client.console.Console;
 import common.Request;
 
 import java.io.*;
-import java.net.*;
 
 import java.util.*;
 
@@ -16,7 +15,6 @@ public class CommandHandler {
     private final CommandProcessor commandProcessor;
     private final Stack<Scanner> scannerStack = new Stack<>();
     private final TreeSet<String> fileNames = new TreeSet<>();
-    private int z = 0;
 
 
     public CommandHandler(Console console, CommandProcessor commandProcessor) {
@@ -107,39 +105,13 @@ public class CommandHandler {
             if(request.getCommandName().equals("help") || request.getCommandName().equals("history"))
                 return;
 
-            DatagramSocket clientSocket = new DatagramSocket();
 
-            ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
-            ObjectOutputStream objStream = new ObjectOutputStream(byteStream);
-            objStream.writeObject(request);
-            byte[] data = byteStream.toByteArray();
+            UdpClient udp = new UdpClient("localhost", 9999);
 
-            InetAddress IPAddress = InetAddress.getByName("localhost");
-            DatagramPacket sendPacket = new DatagramPacket(data, data.length, IPAddress, 9999);
-            clientSocket.send(sendPacket);
+            udp.sendRequest(request);
+            console.println(udp.catchResponse());
 
-            data = new byte[1024];
-            DatagramPacket receivePacket = new DatagramPacket(data, data.length);
-
-            clientSocket.setSoTimeout(3000);
-            try {
-                clientSocket.receive(receivePacket);
-                console.println(new String(receivePacket.getData()).trim());
-
-                clientSocket.close();
-
-                commandProcessor.addHistory(c[0]);
-                z -= 1;
-            }catch (SocketTimeoutException e){
-                console.printError("Слишком долгое ожидание ответа от сервера");
-            }catch (IOException e){
-                console.printError("Ошибка сетевого подключения!!!");
-            }
-            z += 1;
-            if(z > 5){
-                console.printError("Не удалось восстановить подключение к серверу...");
-                throw new ServerException();
-            }
+            commandProcessor.addHistory(c[0]);
         }
     }
 }

@@ -1,4 +1,4 @@
-package client;
+package client.utilities;
 
 import common.exeptions.NotBooleanExeption;
 

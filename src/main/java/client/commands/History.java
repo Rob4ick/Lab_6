@@ -1,6 +1,6 @@
 package client.commands;
 
-import client.CommandProcessor;
+import client.utilities.CommandProcessor;
 import client.console.Console;
 import common.Request;
 

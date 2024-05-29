@@ -2,6 +2,8 @@ package client;
 
 import client.commands.*;
 import client.console.StandartConsole;
+import client.utilities.CommandHandler;
+import client.utilities.CommandProcessor;
 
 public class Client {
     public static void main(String[] args) {
@@ -29,3 +31,4 @@ public class Client {
         try{new CommandHandler(console, commandProcessor).manualMode();}catch (CommandHandler.ServerException ignored){}
     }
 }
+

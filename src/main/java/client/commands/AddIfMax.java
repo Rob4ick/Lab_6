@@ -2,7 +2,7 @@ package client.commands;
 
 import common.Request;
 import common.obj.HumanBeing;
-import client.Ask;
+import client.utilities.Ask;
 import client.console.Console;
 
 public class AddIfMax extends Command {

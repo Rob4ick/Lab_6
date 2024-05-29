@@ -1,6 +1,5 @@
 package client.commands;
 
-import client.Ask;
 import client.console.Console;
 import common.Request;
 

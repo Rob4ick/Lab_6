@@ -11,7 +11,7 @@ public class PrintFieldDescendingWeaponType extends Command {
     }
 
     public boolean execution(String[] args, Request request){
-        if (args.length != 1){
+        if (args.length != 2){
             console.printError("Неправильное количество аргументов");
             return false;
         }

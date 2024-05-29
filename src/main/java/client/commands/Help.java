@@ -1,6 +1,6 @@
 package client.commands;
 
-import client.CommandProcessor;
+import client.utilities.CommandProcessor;
 import client.console.Console;
 import common.Request;
 
@@ -20,7 +20,7 @@ public class Help extends Command {
         }
 
         request.setCommandName("help");
-        commandProcessor.getCommands().values().forEach(command -> {console.println(command.getName() + " " + command.getDescription());});
+        commandProcessor.getCommands().values().forEach(command -> {console.println("\u001B[33m" + command.getName() + "\u001B[0m" + " " + command.getDescription());});
 
         return true;
     }

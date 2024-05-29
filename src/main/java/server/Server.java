@@ -7,12 +7,9 @@ import server.commands.PrintFieldDescendingWeaponType;
 import server.managers.CollectionManager;
 import server.managers.CommandProcessor;
 import server.managers.DumpManager;
+import server.managers.UdpServer;
 
 import java.io.*;
-import java.net.InetSocketAddress;
-import java.net.SocketAddress;
-import java.nio.ByteBuffer;
-import java.nio.channels.DatagramChannel;
 import java.util.NoSuchElementException;
 
 public class Server {
@@ -43,36 +40,18 @@ public class Server {
             commandProcessor.addCommand("print_field_descending_weapon_type", new PrintFieldDescendingWeaponType(collectionManager));
 
 
-            DatagramChannel server = DatagramChannel.open();
-            server.configureBlocking(false);
-            server.socket().bind(new InetSocketAddress(9999));
+            UdpServer udpServer = new UdpServer(9999);
 
-            ByteBuffer buf = ByteBuffer.allocate(1024);
+            while(true) {
+                Request request = udpServer.catchRequest();
 
-            while (true) {
-                buf.clear();
-                SocketAddress clientAddress = server.receive(buf);
+                var comm = commandProcessor.getCommands().get(request.getCommandName());
 
-                if (clientAddress != null) {
+                Response response = new Response();
+                comm.execution(request, response);
+                udpServer.sendResponse(response);
 
-                    ByteArrayInputStream byteStream = new ByteArrayInputStream(buf.array());
-                    ObjectInputStream objStream = new ObjectInputStream(byteStream);
-
-                    Request request = (Request) objStream.readObject();
-
-                    var comm = commandProcessor.getCommands().get(request.getCommandName());
-
-                    Response response = new Response();
-
-                    comm.execution(request, response);
-
-
-                    byte[] message = response.toString().getBytes();
-                    ByteBuffer responseBuffer = ByteBuffer.wrap(message);
-
-                    server.send(responseBuffer, clientAddress);
-                    collectionManager.saveCollection();
-                }
+                collectionManager.saveCollection();
             }
         }catch(NullPointerException e) {
             System.out.println("Несуществующая переменная окружения!!!\nСоздаёте переменную с именем \"javaFile\" и положите в неё путь к файлу. И запустите программу ещё раз =)");
